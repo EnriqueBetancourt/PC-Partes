@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito de Compras</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/diseño.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .carrito-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .producto-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      gap: 15px;
+      width: 100%;
+    }
+    .producto-card img {
+      width: 100px;
+      height: auto;
+      border-radius: 5px;
+    }
+    .producto-info {
+      flex: 1;
+    }
+    .resumen {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      min-width: 300px;
+    }
+    .resumen h4, .resumen h5 {
+      margin-bottom: 15px;
+    }
+    .acciones {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container pt-2">
+            <a class="navbar-brand" href="../index.html">PC Partes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+                </ul>
+                <form class="d-flex">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input class="form-control" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Inicio Sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registro.html">Registrarse</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="carrito.html">
+                            <i class="bi bi-cart3"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  <div class="container my-5">
+    <h2 class="mb-4">Carrito de Compras</h2>
+    <div class="row">
+      <div class="col-lg-8">
+        <div id="carrito" class="carrito-container"></div>
+        <button class="btn btn-outline-danger mt-3" onclick="vaciarCarrito()">Vaciar Carrito</button>
+      </div>
+      <div class="col-lg-4">
+        <div class="resumen shadow-sm">
+          <h4>Resumen de compra</h4>
+          <div class="d-flex justify-content-between">
+            <span>Productos (<span id="cantidad">0</span>)</span>
+            <span id="subtotal">$0.00</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Envío</span>
+            <span id="envio">$114.00</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between fw-bold">
+            <span>Total</span>
+            <span id="total">$0.00</span>
+          </div>
+          <button class="btn btn-primary w-100 mt-3">Continuar compra</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function mostrarCarrito() {
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const contenedor = document.getElementById("carrito");
+      const totalElemento = document.getElementById("total");
+      const subtotalElemento = document.getElementById("subtotal");
+      const cantidadElemento = document.getElementById("cantidad");
+
+      contenedor.innerHTML = "";
+
+      let total = 0;
+      let cantidadTotal = 0;
+
+      carrito.forEach((producto, index) => {
+        const subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+        cantidadTotal += producto.cantidad;
+
+        const productoHTML = `
+          <div class="producto-card shadow-sm">
+            <img src="${producto.foto}" alt="${producto.nombre}">
+            <div class="producto-info">
+              <h5>${producto.nombre}</h5>
+              <p class="mb-1">Precio: $${producto.precio.toFixed(2)}</p>
+              <p class="mb-1">Cantidad: ${producto.cantidad}</p>
+              <p class="mb-2">Subtotal: $${subtotal.toFixed(2)}</p>
+              <div class="acciones">
+                <button class="btn btn-sm btn-outline-danger" onclick="eliminarProducto(${index})">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        `;
+        contenedor.innerHTML += productoHTML;
+      });
+
+      const envio = carrito.length > 0 ? 114 : 0;
+
+      subtotalElemento.textContent = `$${total.toFixed(2)}`;
+      totalElemento.textContent = `$${(total + envio).toFixed(2)}`;
+      cantidadElemento.textContent = cantidadTotal;
+      document.getElementById("envio").textContent = `$${envio.toFixed(2)}`;
+    }
+
+    function vaciarCarrito() {
+      localStorage.removeItem("carrito");
+      mostrarCarrito();
+    }
+
+    function eliminarProducto(index) {
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      carrito.splice(index, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      mostrarCarrito();
+    }
+
+    window.onload = mostrarCarrito;
+  </script>
+
+  <footer class="bg-dark text-center p-3 mt-5">
+    <p style="color: white;"><b>&copy; 2025 PC Partes</b></p>
+</footer>
+</body>
+</html>

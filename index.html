@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PC Partes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/diseño.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        .banner {
+            background-color: white;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container pt-2">
+            <a class="navbar-brand" href="#">PC Partes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="html/productos.html">Productos</a></li>
+                </ul>
+                <form class="d-flex">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input class="form-control" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                </div>
+            </form>
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item"><a class="nav-link" href="html/perfil.html">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="html/login.html">Inicio Sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="html/registro.html">Registrarse</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#">
+                        <i class="bi bi-cart3"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="banner">
+        <div class="container-fluid" style="background-color: #283747; padding: 15px;">
+            <h1>Bienvenidos a PC PARTES</h1>
+        </div>
+        <div class="container">
+            <img class="img-banner" src="img/banner.jpg" alt="">
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row" id="productos-container">
+            
+        </div>
+    </div>
+
+    <footer class="bg-dark text-center p-3 mt-5">
+        <p style="color: white;"><b>&copy; 2025 PC Partes</b></p>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("productos.json")
+            .then(response => response.json())
+            .then(productos => {
+                const container = document.getElementById("productos-container");
+                productos.forEach(producto => {
+                    const card = `
+                        <div class="card col-md-4 mb-3">
+                            <div class="card">
+                                <img src="${producto.foto}" class="card-img-top img-productos" alt="${producto.nombre}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${producto.nombre}</h5>
+                                    <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
+                                    <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            })
+            .catch(error => console.error("Error al cargar los productos:", error));
+
+        // Capturar búsqueda y redirigir a productos.html
+        document.querySelector("form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const query = document.querySelector(".form-control").value.toLowerCase().trim();
+            if (query) {
+                window.location.href = `html/productos.html?search=${encodeURIComponent(query)}`;
+            } else {
+                window.location.href = "html/productos.html"; // Si no hay texto, mostrar todos los productos
+            }
+        });
+    });
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

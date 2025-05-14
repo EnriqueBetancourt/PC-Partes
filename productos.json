@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nombre": "Tarjeta Gráfica RTX 4070",
+        "precio": 999.99,
+        "foto": "../img/rtx4070.avif"
+    },
+    {
+        "id": 2,
+        "nombre": "Procesador Intel i7 13700K",
+        "precio": 399.99,
+        "foto": "../img/i7.webp"
+    },
+    {
+        "id": 3,
+        "nombre": "Memoria RAM Corsair 32GB",
+        "precio": 149.99,
+        "foto": "../img/ram.jpg"
+    },
+    {
+        "id": 4,
+        "nombre": "SSD NVMe 1TB Samsung",
+        "precio": 129.99,
+        "foto": "../img/ssd.jpg"
+    },
+    {
+        "id": 5,
+        "nombre": "Fuente de Poder 750W",
+        "precio": 99.99,
+        "foto": "../img/fuente.jpg"
+    }
+]

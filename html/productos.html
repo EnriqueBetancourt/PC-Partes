@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Productos - PC Partes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/diseño.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container pt-2">
+            <a class="navbar-brand" href="../index.html">PC Partes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+                </ul>
+                <form class="d-flex">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input class="form-control" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Inicio Sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registro.html">Registrarse</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="carrito.html">
+                            <i class="bi bi-cart3"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-white text-center p-3" style="background-color: #283747;">
+        <h1>Nuestros productos</h1>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row" id="productos-container"></div>
+    </div>
+
+    <footer class="bg-dark text-center p-3 mt-5">
+        <p style="color: white;"><b>&copy; 2025 PC Partes</b></p>
+    </footer>
+
+    <!-- Script para cargar y mostrar productos -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("../productos.json")
+                .then(response => response.json())
+                .then(productos => {
+                    const params = new URLSearchParams(window.location.search);
+                    const searchQuery = params.get("search") ? params.get("search").toLowerCase().trim() : "";
+
+                    if (searchQuery) {
+                        const productosFiltrados = productos.filter(producto =>
+                            producto.nombre.toLowerCase().includes(searchQuery)
+                        );
+                        mostrarProductos(productosFiltrados);
+                    } else {
+                        mostrarProductos(productos);
+                    }
+                })
+                .catch(error => console.error("Error al cargar los productos:", error));
+        });
+
+        function mostrarProductos(productos) {
+            const container = document.getElementById("productos-container");
+            container.innerHTML = "";
+
+            if (productos.length === 0) {
+                container.innerHTML = "<p class='text-center'>No se encontraron productos.</p>";
+                return;
+            }
+
+            productos.forEach(producto => {
+                const card = `
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img class="img-productos" src="${producto.foto}" class="card-img-top" alt="${producto.nombre}">
+                            <div class="card-body">
+                                <h5 class="card-title">${producto.nombre}</h5>
+                                <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
+                                <button class="btn btn-primary agregar-carrito"
+                                    data-id="${producto.id}"
+                                    data-nombre="${producto.nombre}"
+                                    data-precio="${producto.precio}"
+                                    data-foto="${producto.foto}">
+                                    Agregar al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+    </script>
+
+    <!-- Script para agregar al carrito y actualizar contador -->
+    <script>
+        function actualizarNumeroCarrito() {
+            const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            document.querySelector(".bi-cart3 + span").textContent = carrito.reduce((total, p) => total + p.cantidad, 0);
+        }
+
+        document.addEventListener("click", function(e) {
+            if (e.target.classList.contains("agregar-carrito")) {
+                e.preventDefault();
+
+                const id = e.target.getAttribute("data-id");
+                const nombre = e.target.getAttribute("data-nombre");
+                const precio = parseFloat(e.target.getAttribute("data-precio"));
+                const foto = e.target.getAttribute("data-foto");
+
+                let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+                const productoExistente = carrito.find(p => p.id === id);
+                if (productoExistente) {
+                    productoExistente.cantidad += 1;
+                } else {
+                    carrito.push({ id, nombre, precio, foto, cantidad: 1 });
+                }
+
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                actualizarNumeroCarrito();
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            actualizarNumeroCarrito();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

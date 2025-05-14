@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar Sesión | PC Partes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/diseño.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container pt-2">
+        <a class="navbar-brand" href="../index.html">PC Partes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+            </ul>
+            <form class="d-flex">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input class="form-control" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                </div>
+            </form>
+            <ul class="navbar-nav ms-3">
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="#">
+                        <i class="bi bi-cart3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            0
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                        </button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-center p-3 mt-5">
+    <p style="color: white;"><b>&copy; 2025 PC Partes</b></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

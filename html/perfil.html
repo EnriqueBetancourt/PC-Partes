@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta | PC Partes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/diseño.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container pt-2">
+        <a class="navbar-brand" href="../index.html">PC Partes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+            </ul>
+            <form class="d-flex">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input class="form-control" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                </div>
+            </form>
+            <ul class="navbar-nav ms-3">
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="#">
+                        <i class="bi bi-cart3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            0
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <!-- Menú lateral -->
+        <div class="col-md-4 mb-4">
+            <div class="list-group shadow-sm">
+                <a href="#" class="list-group-item list-group-item-action active" style="background-color: #283747;">
+                    <i class="bi bi-person-fill me-2"></i>Mi Información
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-geo-alt-fill me-2"></i>Mis Direcciones
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-credit-card-fill me-2"></i>Mis Tarjetas
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-box-seam me-2"></i>Mis Pedidos
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-arrow-counterclockwise me-2"></i>Devoluciones
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-tag-fill me-2"></i>Mis Cupones
+                </a>
+                <a href="logout.html" class="list-group-item list-group-item-action text-danger">
+                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                </a>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="col-md-8 mb-2">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-header text-white" style="background-color: #283747;">
+                    <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Mi Información</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Aquí podrías integrar PHP o JS dinámicamente -->
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Nombre completo:</strong></label>
+                        <p class="form-control-plaintext">Luis Enrique Betancourt</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Correo electrónico:</strong></label>
+                        <p class="form-control-plaintext">lbetancourt@gmail.com</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Teléfono:</strong></label>
+                        <p class="form-control-plaintext">+52 449 275 1790</p>
+                    </div>
+                    <div class="text-end">
+                        <a href="editar_perfil.html" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil-square me-1"></i>Editar Información
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-center p-3">
+    <p style="color: white;"><b>&copy; 2025 PC Partes</b></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
